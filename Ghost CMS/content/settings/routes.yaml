@@ -1,0 +1,24 @@
+routes:
+  /: shop
+  /shop/: shop
+  /news/: news
+
+collections:
+  /:
+    permalink: /shop/{slug}/
+    template: shop
+    filter: primary_tag:product
+    data: tag.product
+  /shop/:
+    permalink: /shop/{slug}/
+    template: shop
+    filter: primary_tag:product
+    data: tag.product
+  /news/:
+    permalink: /news/{slug}/
+    template: news
+    filter: primary_tag:news
+    data: tag.news
+
+taxonomies:
+  ## Nothing but silence 
