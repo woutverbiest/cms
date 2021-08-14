@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+          <!-- Compiled and minified CSS -->
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+          <script type="module" src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+          <style>
+            .container{
+              max-width: 980px;
+              width: 100%;
+              padding:  0 16px;
+              margin: auto;
+            }
+    
+            .headertab{
+              width: 100%;
+              display:grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 16px;
+              margin-top: 16px;
+            }
+    
+            .headertab button{
+              border:none;
+            }
+    
+            .headertab button.btn.active{
+              background-color: #ee6e73 !important;
+              color:white;
+            }
+    
+            .floatingbtn{
+              position:fixed;
+              bottom: 16px;
+              right: 16px;
+              border-radius: 500px;
+            }
+          </style>
+</head>
+<body>
+    <nav class="nav-extended">
+        <div class="nav-wrapper container">
+          <a href="/" class="brand-logo">Crazy fruit Shop</a>
+        </div>
+      </nav>
+
+      <div class="container">
+          <br>
+          <% if (locals.error) { %>
+            <h3 class="red-text"><%= error %></h3>
+          <% } %>
+          <br>
+        <form action="login" method="post">
+            <div class="input-field">
+                <input type="password" id="key" name="key" class="validate"/>
+                <label for="key">Admin Key</label>
+            </div>
+            <input type="submit" value="login" class="btn"/>
+        </form>
+    </div>
+</body>
+</html>

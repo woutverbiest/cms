@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>crazy fruit shop</title>
+      <!-- Compiled and minified CSS -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+      <style>
+        .container{
+          max-width: 980px;
+          width: 100%;
+          padding:  0 16px;
+          margin: auto;
+        }
+
+        .headertab{
+          width: 100%;
+          display:grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+          margin-top: 16px;
+        }
+
+        .headertab button{
+          border:none;
+        }
+
+        .headertab button.btn.active{
+          background-color: #ee6e73 !important;
+          color:white;
+        }
+
+        .floatingbtn{
+          position:fixed;
+          bottom: 16px;
+          right: 16px;
+          border-radius: 25px;
+        }
+
+        .floatingcard{
+          position:fixed;
+          bottom: 16px;
+          right: 16px;
+          border-radius: 25px;
+          padding: 16px;
+        }
+
+        .floatingcard div{
+          border-radius: 25px;
+          padding: 16px;
+          margin-bottom: 16px;
+        }
+
+        .pill{
+          border-radius: 25px;
+        }
+
+        .accountbutton{
+          float:right;
+        }
+      </style>
+</head>
+<body>
+  <nav class="nav-extended">
+    <div class="nav-wrapper container">
+      <a href="/" class="brand-logo">Crazy fruit Shop</a>
+    </div>
+  </nav>
+
+<div x-data="{tab: 'product'}" class="container">
+
+  <div class="headertab">
+    <button class="waves-effect waves-light btn btn-flat grey lighten-2" :class="{ 'active': tab === 'product' }" @click="tab = 'product'">Products</button>
+    <button class="waves-effect waves-light btn btn-flat grey lighten-2" :class="{ 'active': tab === 'news' }" @click="tab = 'news'">News</button>
+  </div>
+
+  <div x-show="tab === 'product'" id="news">
+    <h2>Products</h2>
+    <% posts.forEach(function(post){ %>
+      <% if (post.primary_tag.name == 'product') { %>
+        <div class="row">
+          <div class="col s12 m7">
+            <div class="card">
+              <div class="card-image">
+                <img src="<%= post.feature_image %>">
+                <span class="card-title"><%= post.title %></span>
+              </div>
+              <div class="card-content">
+                <p><%= post.excerpt %></p>
+              </div>
+              <div class="card-action">
+                <a href="<%= post.url %>" target="_blank">buy</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    <% }); %>
+  </div>
+
+  <div x-show="tab === 'news'"  id="news">
+    <h2>News</h2>
+    <% posts.forEach(function(post){ %>
+      <% if (post.primary_tag.name == 'news') { %>
+        <div class="row">
+          <div class="col s12 m7">
+            <div class="card">
+              <div class="card-image">
+                <img src="<%= post.feature_image %>">
+                <span class="card-title"><%= post.title %></span>
+              </div>
+              <div class="card-content">
+                <p><%= post.excerpt %></p>
+              </div>
+              <div class="card-action">
+                <a href="<%= post.url %>" target="_blank">Read more</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    <% }); %>
+  </div>
+</div>
+
+  <% if (locals.admin) { %>
+      
+      
+      <div class="floatingcard" x-data="{ account: false }">
+        
+
+        <div class="grey lighten-2" x-show="account"
+        @click.away="account = false">
+          <h4>Hello Admin</h4>
+          <a href="/logout" class="btn pill">logout</a>
+        </div>
+
+        <a @click="account = true" class="btn grey lighten-2 pill black-text accountbutton">Account</a>
+      </div>
+    <% } %>
+
+  <% if (! locals.admin) { %>
+      <a class="floatingbtn waves-light btn btn-flat grey lighten-2" href="/login">Log In</a>
+    <% } %>
+  
+</body>
+</html>
+
+
